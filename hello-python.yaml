@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: hello-python
-        image: mamercad/hello-python:v0.0.2
+        image: mamercad/hello-python:v0.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
