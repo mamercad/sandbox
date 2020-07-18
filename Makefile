@@ -2,44 +2,52 @@ SHELL := /usr/local/bin/bash
 
 HUB_NAMESPACE  = "mamercad"
 IMAGE_NAME     = "hello"
-IMAGE_TAG      = "blue"
+IMAGE_TAG_V1   = "blue"
+IMAGE_TAG_V2   = "green"
 DEPLOY_NAME    = "deployment/hello"
 LISTEN_OUTSIDE = 5000
 LISTEN_INSIDE  = 5000
 
-.PHONY: build
-build:
-	docker build --build-arg tag=$(IMAGE_TAG) -t $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG) .
+.PHONY: build-blue
+build-blue:
+	docker build --build-arg tag=$(IMAGE_TAG) -t $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V1) .
 
-.PHONY: run
-run: build
-	docker run -d --rm -p $(LISTEN_OUTSIDE):$(LISTEN_INSIDE) --env tag=$(IMAGE_TAG) $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG)
+.PHONY: build-green
+build-green:
+	docker build --build-arg tag=$(IMAGE_TAG) -t $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V2) .
+
+.PHONY: run-blue
+run-blue: build-blue
+	docker run -d --rm -p $(LISTEN_OUTSIDE):$(LISTEN_INSIDE) --env tag=$(IMAGE_TAG) $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V1)
+
+.PHONY: run-green
+run-green: build-green
+	docker run -d --rm -p $(LISTEN_OUTSIDE):$(LISTEN_INSIDE) --env tag=$(IMAGE_TAG) $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V2)
 
 .PHONY: push
-push: build
-	docker push $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG)
+push: build-blue build-green
+	docker push $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V1)
+	docker push $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V2)
 
-.PHONY: blue
-blue:
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
+.PHONY: flip-blue
+flip-blue:
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V1) --record=true
 
-.PHONY: green
-green:
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
+.PHONY: flip-green
+flip-green:
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V2) --record=true
 
-.PHONY: flipflop
-flipflop:
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
-	sleep 60
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
-	sleep 60
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
-	sleep 60
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
-	sleep 60
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
-	sleep 60
-	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
+.PHONY: flip-flop
+flip-flop:
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V1) --record=true
+	sleep 20
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V2) --record=true
+	sleep 20
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V1) --record=true
+	sleep 20
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V2) --record=true
+	sleep 20
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG_V1) --record=true
 
 .PHONY: server
 server:
