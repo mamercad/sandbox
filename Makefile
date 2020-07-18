@@ -1,7 +1,7 @@
 HUB_NAMESPACE  = "mamercad"
-IMAGE_NAME     = "hello-python"
+IMAGE_NAME     = "hello"
 IMAGE_TAG      = "blue"
-DEPLOY_NAME    = "deployment/hello-python"
+DEPLOY_NAME    = "deployment/hello"
 LISTEN_OUTSIDE = 5000
 LISTEN_INSIDE  = 5000
 
@@ -19,11 +19,11 @@ push: build
 
 .PHONE: blue
 blue:
-	kubectl set image $(DEPLOY_NAME) hello-python=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
 
 .PHONE: green
 green:
-	kubectl set image $(DEPLOY_NAME) hello-python=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
 
 .PHONY: k8s
 k8s:

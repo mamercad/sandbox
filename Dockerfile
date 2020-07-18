@@ -6,8 +6,8 @@ ENV tag=${tag:-blue}
 RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt /app/
-COPY hello-python.py /app/
+COPY hello.py /app/
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
-ENTRYPOINT python /app/hello-python.py ${tag}
+ENTRYPOINT python /app/hello.py ${tag}

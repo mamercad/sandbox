@@ -8,11 +8,11 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-python
+  name: hello
   namespace: sandbox
 spec:
   selector:
-    app: hello-python
+    app: hello
     namespace: sandbox
   ports:
   - protocol: "TCP"
@@ -24,24 +24,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-python
+  name: hello
   namespace: sandbox
 spec:
   selector:
     matchLabels:
-      app: hello-python
+      app: hello
       namespace: sandbox
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
-        app: hello-python
+        app: hello
         namespace: sandbox
     spec:
       containers:
-      - name: hello-python
-        image: mamercad/hello-python:blue
-        # imagePullPolicy: Always
+      - name: hello
+        image: mamercad/hello:blue
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         resources:
