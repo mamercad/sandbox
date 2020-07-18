@@ -13,8 +13,8 @@ from requests.exceptions import HTTPError
 
 reqs_per_sec = 3
 
-k8s_namespace = 'sandbox'
-k8s_service   = 'hello'
+k8s_namespace = os.getenv('K8S_NAMESPACE', default='sandbox')
+k8s_service   = os.getenv('K8S_SERVICE',   default='hello')
 endpoint      = None
 port          = None
 
