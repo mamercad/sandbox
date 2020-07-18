@@ -1,7 +1,14 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sandbox
+
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-python-service
+  name: hello-python
   namespace: sandbox
 spec:
   selector:
@@ -9,7 +16,7 @@ spec:
     namespace: sandbox
   ports:
   - protocol: "TCP"
-    port: 6000
+    port: 5000
     targetPort: 5000
   type: LoadBalancer
 
@@ -33,7 +40,20 @@ spec:
     spec:
       containers:
       - name: hello-python
-        image: mamercad/hello-python:v0.0.1
-        imagePullPolicy: Always
+        image: mamercad/hello-python:blue
+        # imagePullPolicy: Always
         ports:
         - containerPort: 5000
+        resources:
+          limits:
+            cpu: 0.5
+            memory: 128Mi
+          requests:
+            cpu: 0.25
+            memory: 64M
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3

@@ -1,7 +1,7 @@
 FROM python:3.7
 
 ARG tag
-ENV tag=${tag:-latest}
+ENV tag=${tag:-blue}
 
 RUN mkdir /app
 WORKDIR /app
