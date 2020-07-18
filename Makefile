@@ -17,12 +17,26 @@ run: build
 push: build
 	docker push $(HUB_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG)
 
-.PHONE: blue
+.PHONY: blue
 blue:
 	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
 
-.PHONE: green
+.PHONY: green
 green:
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
+
+.PHONY: flipflop
+flipflop:
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
+	sleep 60
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
+	sleep 60
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
+	sleep 60
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
+	sleep 60
+	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):blue --record=true
+	sleep 60
 	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
 
 .PHONY: k8s
