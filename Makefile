@@ -1,3 +1,5 @@
+SHELL := /usr/local/bin/bash
+
 HUB_NAMESPACE  = "mamercad"
 IMAGE_NAME     = "hello"
 IMAGE_TAG      = "blue"
@@ -39,6 +41,10 @@ flipflop:
 	sleep 60
 	kubectl set image $(DEPLOY_NAME) $(IMAGE_NAME)=$(HUB_NAMESPACE)/$(IMAGE_NAME):green --record=true
 
-.PHONY: k8s
-k8s:
+.PHONY: server
+server:
 	kubectl apply -f $(IMAGE_NAME).yaml
+
+.PHONY: client
+client:
+	source venv/bin/activate && ./client.py
