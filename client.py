@@ -12,15 +12,19 @@ import signal
 from requests.exceptions import HTTPError
 
 reqs_per_sec = 3
-endpoint     = None
-port         = None
+
+k8s_namespace = 'sandbox'
+k8s_service   = 'hello'
+endpoint      = None
+port          = None
+
 attempts     = 0
 successes    = 0
 failures     = 0
 
 try:
-    endpoint = subprocess.check_output('kubectl -n sandbox get svc hello -o jsonpath="{.status.loadBalancer.ingress[*].ip}"', shell=True, universal_newlines=True)
-    port     = subprocess.check_output('kubectl -n sandbox get svc hello -o jsonpath="{.spec.ports[*].port}"', shell=True, universal_newlines=True)
+    endpoint = subprocess.check_output('kubectl -n {} get svc {} -o jsonpath="{{.status.loadBalancer.ingress[*].ip}}"'.format(k8s_namespace, k8s_service), shell=True, universal_newlines=True)
+    port     = subprocess.check_output('kubectl -n {} get svc {} -o jsonpath="{{.spec.ports[*].port}}"'.format(k8s_namespace, k8s_service), shell=True, universal_newlines=True)
 except Exception as e:
     print(f'Exception: {e}')
     sys.exit(1)
@@ -62,9 +66,6 @@ while True:
         status_code = r.status_code
 
         r.raise_for_status()
-
-        # print("attempt: {}\n  local:  {}\n  remote: {}\n  tag:    {}\n".format(attempts, j, r.json()['date'], r.json()['tag']))
-        # requests elapsed: The amount of time elapsed between sending the request and the arrival of the response (as a timedelta). This property specifically measures the time taken between sending the first byte of the request and finishing parsing the headers. It is therefore unaffected by consuming the response content or the value of the stream keyword argument.
 
         remote_date = r.json()['date']
         remote_tag  = r.json()['tag']
