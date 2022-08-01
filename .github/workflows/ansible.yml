@@ -1,0 +1,18 @@
+name: ansible
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  ansible:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/mamercad/sandbox:latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: |
+        ansible --version
