@@ -18,5 +18,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          ansible --version
+      - name: ansible
+        id: ansible
+        working-directory: ansible
+        run: |
+          ansible-playbook --inventory localhost, --connection local playbook.yml --verbose
