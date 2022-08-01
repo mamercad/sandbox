@@ -1,0 +1,13 @@
+---
+- name: playbook
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+
+    - name: ping
+      ansible.builtin.ping:
+
+    - name: debug
+      ansible.builtin.debug:
+        msg: debug
