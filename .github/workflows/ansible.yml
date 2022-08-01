@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/mamercad/sandbox:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
-    - uses: actions/checkout@v3
-    - run: |
-        ansible --version
+      - uses: actions/checkout@v3
+      - run: |
+          ansible --version
