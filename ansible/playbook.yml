@@ -19,6 +19,14 @@
         path: "{{ lookup('ansible.builtin.env', 'GITHUB_STEP_SUMMARY') }}"
         marker: ""
         block: |-
+          Testing one two three
+
+    - name: summary
+      ansible.builtin.blockinfile:
+        state: present
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_STEP_SUMMARY') }}"
+        marker: ""
+        block: |-
           # Hello from Ansible
           This is coming from Ansible using `ansible.builtin.blockinfile` like this:
           ```yaml
