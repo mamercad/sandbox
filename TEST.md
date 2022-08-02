@@ -4,7 +4,7 @@
 3.png
 4.png
 
-![DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png](DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png)
+![DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png](./images/DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png)
 
 DALL·E 2022-08-01 10.24.31 - cyberpunk pixel art_ cyborg bird spying on data center.png
 DALL·E 2022-08-01 10.25.07 - cyberpunk pixel art_ cyborg bird spying on data center.png
