@@ -26,17 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: |
-          echo "::notice::This is a notice message"
-          echo "::warning::This is a warning message"
-          echo "::debug::This is a debug message"
-          echo "::error::This is a error message"
+      # - run: |
+      #     echo "::notice::This is a notice message"
+      #     echo "::warning::This is a warning message"
+      #     echo "::debug::This is a debug message"
+      #     echo "::error::This is a error message"
 
-      - name: ansible
+      - name: Ⓐnsible
         id: ansible
         working-directory: ansible
         run: |
-          ansible-playbook --inventory localhost, --connection local playbook.yml --verbose
-
-      - run: |
-          echo "# Hello World" >> $GITHUB_STEP_SUMMARY
+          ansible-playbook --inventory localhost, --connection local \
+            playbook.yml --verbose
