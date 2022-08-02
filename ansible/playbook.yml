@@ -23,7 +23,7 @@
           ```yaml
           - name: summary
             ansible.builtin.blockinfile:
-              path: "{{ lookup('ansible.builtin.env', 'GITHUB_STEP_SUMMARY') }}"
+              path: "'{{' lookup('ansible.builtin.env', 'GITHUB_STEP_SUMMARY') '}}'"
               marker: ""
               block: |-
                 # Hello from Ansible
