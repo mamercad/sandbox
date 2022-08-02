@@ -1,13 +1,3 @@
-1.png
-2.png
-3.png
-4.png
-
-DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png
-DALL·E 2022-08-01 10.24.31 - cyberpunk pixel art_ cyborg bird spying on data center.png
-DALL·E 2022-08-01 10.25.07 - cyberpunk pixel art_ cyborg bird spying on data center.png
-DALL·E 2022-08-01 10.26.50 - cyberpunk pixel art_ cyborg bird spying on data center.png
-
 <p align="center" width="100%">
 <img src="images/DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png"
      alt="DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center"
@@ -26,3 +16,5 @@ DALL·E 2022-08-01 10.26.50 - cyberpunk pixel art_ cyborg bird spying on data ce
      title="DALL·E 2022-08-01 10.26.50 - cyberpunk pixel art_ cyborg bird spying on data center"
      height=150>
 </p>
+
+> Thanks for the [DALL-E](https://openai.com/dall-e-2/?labs) credits Mike P :smile:
