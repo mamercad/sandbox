@@ -1,4 +1,4 @@
-<p align="center" width="100%">
+<p align="left" width="100%">
 <img src="images/DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png"
      alt="DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center"
      title="DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center"
