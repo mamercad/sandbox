@@ -3,7 +3,7 @@
 3.png
 4.png
 
-<img src="images/DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png">
+<img height=100 src="images/DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png">
 
 DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png
 DALL·E 2022-08-01 10.24.31 - cyberpunk pixel art_ cyborg bird spying on data center.png
