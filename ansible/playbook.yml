@@ -37,3 +37,12 @@
         block: |-
           ## Another play from Ansible
           Here's more stuff from the next play.
+
+    - name: debug
+      ansible.builtin.debug:
+        msg: |
+          mark
+
+          ::notice::This is a notice message
+
+          mark
