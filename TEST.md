@@ -12,17 +12,17 @@ DALL·E 2022-08-01 10.26.50 - cyberpunk pixel art_ cyborg bird spying on data ce
 <img src="images/DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center.png"
      alt="DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center"
      title="DALL·E 2022-08-01 10.24.13 - cyberpunk pixel art_ cyborg bird spying on data center"
-     height=100>
+     height=200>
 <img src="images/2.png"
      alt="DALL·E 2022-08-01 10.24.31 - cyberpunk pixel art_ cyborg bird spying on data center"
      title="DALL·E 2022-08-01 10.24.31 - cyberpunk pixel art_ cyborg bird spying on data center"
-     height=100>
+     height=200>
 <img src="images/3.png"
      alt="DALL·E 2022-08-01 10.25.07 - cyberpunk pixel art_ cyborg bird spying on data center"
      title="DALL·E 2022-08-01 10.25.07 - cyberpunk pixel art_ cyborg bird spying on data center"
-     height=100>
+     height=200>
 <img src="images/4.png"
      alt="DALL·E 2022-08-01 10.26.50 - cyberpunk pixel art_ cyborg bird spying on data center"
      title="DALL·E 2022-08-01 10.26.50 - cyberpunk pixel art_ cyborg bird spying on data center"
-     height=100>
+     height=200>
 </p>
