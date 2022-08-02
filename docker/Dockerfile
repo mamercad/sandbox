@@ -2,6 +2,8 @@ FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+SHELL ["/bin/bash", "-c"]
+
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update --yes && \
     apt-get install --yes python3 python3-dev python3-pip python3-venv
