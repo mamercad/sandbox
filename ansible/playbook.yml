@@ -11,3 +11,9 @@
     - name: debug
       ansible.builtin.debug:
         msg: debug
+
+    - name: summary
+      ansible.builtin.blockfile:
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_STEP_SUMMARY') }}"
+        block: |-
+          # Hello from Ansible
