@@ -39,3 +39,6 @@ jobs:
         run: |
           ansible-playbook --inventory localhost, --connection local \
             playbook.yml --verbose
+
+      - run: |
+          echo "::notice::Ansible set FOO=${{ env.FOO }}"

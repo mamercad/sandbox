@@ -15,6 +15,7 @@
 
     - name: summary
       ansible.builtin.blockinfile:
+        state: present
         path: "{{ lookup('ansible.builtin.env', 'GITHUB_STEP_SUMMARY') }}"
         marker: ""
         block: |-
@@ -32,6 +33,7 @@
 
     - name: more summary
       ansible.builtin.blockinfile:
+        state: present
         path: "{{ lookup('ansible.builtin.env', 'GITHUB_STEP_SUMMARY') }}"
         marker: ""
         block: |-
@@ -46,3 +48,9 @@
           ::notice::This is a notice message
 
           mark
+
+    - name: envvars
+      ansible.builtin.lineinfile:
+        state: present
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
+        line: FOO=BAR
