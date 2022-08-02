@@ -8,6 +8,7 @@ license = "UNLICENSE"
 [tool.poetry.dependencies]
 python = "^3.9"
 ansible = "^6.1.0"
+st2client = "^3.7.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.20.0"
