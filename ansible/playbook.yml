@@ -10,7 +10,8 @@
 
     - name: debug
       ansible.builtin.debug:
-        msg: debug
+        msg: |-
+          ::notice::This is a notice message
 
     - name: summary
       ansible.builtin.blockinfile:
