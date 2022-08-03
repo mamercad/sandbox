@@ -29,6 +29,12 @@
         path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
         line: ANNOTATION_2_MESSAGE="this is message 2"
 
+    - name: message
+      ansible.builtin.lineinfile:
+        state: present
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
+        line: ANNOTATION_COUNT="2"
+
 #    - name: debug
 #      ansible.builtin.debug:
 #        msg: |-

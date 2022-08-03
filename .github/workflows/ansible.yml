@@ -44,6 +44,9 @@ jobs:
         id: annotations
         run: |
           cat $GITHUB_ENV
+          for i in $(seq $ANNOTATION_COUNT); do
+            echo $i
+          done
 
       # - run: |
       #     echo "::notice::Ansible set FOO=${{ env.FOO }}"
