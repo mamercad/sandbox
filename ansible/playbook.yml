@@ -3,12 +3,31 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  environment:
-    FOO: BAR
   tasks:
 
-    - name: ping
-      ansible.builtin.ping:
+    - name: level
+      ansible.builtin.lineinfile:
+        state: present
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
+        line: ANNOTATION_1_LEVEL="notice"
+
+    - name: message
+      ansible.builtin.lineinfile:
+        state: present
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
+        line: ANNOTATION_1_MESSAGE="this is message 1"
+
+    - name: level
+      ansible.builtin.lineinfile:
+        state: present
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
+        line: ANNOTATION_2_LEVEL="notice"
+
+    - name: message
+      ansible.builtin.lineinfile:
+        state: present
+        path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
+        line: ANNOTATION_2_MESSAGE="this is message 2"
 
 #    - name: debug
 #      ansible.builtin.debug:
@@ -70,12 +89,6 @@
 #           ::notice::This is a notice message
 
 #           mark
-
-#     - name: envvars
-#       ansible.builtin.lineinfile:
-#         state: present
-#         path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
-#         line: FOO=BAR
 
 # #- name: Override from play vars
 # #  hosts: localhost
