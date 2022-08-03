@@ -33,7 +33,7 @@
       ansible.builtin.lineinfile:
         state: present
         path: "{{ lookup('ansible.builtin.env', 'GITHUB_ENV') }}"
-        line: ANNOTATION_COUNT="2"
+        line: ANNOTATION_COUNT=2
 
 #    - name: debug
 #      ansible.builtin.debug:
