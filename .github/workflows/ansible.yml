@@ -40,7 +40,7 @@ jobs:
           echo $X
 
       - name: Set the value in bash
-        id: step_two
+        id: step_three
         run: |
           echo "::debug::X is $X"
 
