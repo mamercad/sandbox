@@ -35,10 +35,10 @@ jobs:
 
       - name: Ⓐnsible
         id: ansible
-        working-directory: ansible2
+        working-directory: ansible
         run: |
           ansible-playbook --inventory localhost, --connection local \
-            playbook2.yml --verbose
+            playbook.yml --verbose
 
-      - run: |
-          echo "::notice::Ansible set FOO=${{ env.FOO }}"
+      # - run: |
+      #     echo "::notice::Ansible set FOO=${{ env.FOO }}"
