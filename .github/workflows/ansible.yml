@@ -45,8 +45,8 @@ jobs:
         run: |
           cat $GITHUB_ENV
           for i in $(seq $ANNOTATION_COUNT); do
-            echo ANNOTATION_LEVEL="ANNOTATION_${i}_LEVEL"
-            echo ANNOTATION_MESSAGE="ANNOTATION_${i}_MESSAGE"
+            ANNOTATION_LEVEL="ANNOTATION_${i}_LEVEL"
+            ANNOTATION_MESSAGE="ANNOTATION_${i}_MESSAGE"
             echo "::${!ANNOTATION_LEVEL}:${!ANNOTATION_MESSAGE}"
           done
 
