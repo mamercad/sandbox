@@ -47,9 +47,10 @@ jobs:
           for i in $(seq $ANNOTATION_COUNT); do
             ANNOTATION_LEVEL="ANNOTATION_${i}_LEVEL"
             ANNOTATION_MESSAGE="ANNOTATION_${i}_MESSAGE"
-            x="${!ANNOTATION_LEVEL:1:-1}"
-            y="${!ANNOTATION_MESSAGE:1:-1}"
-            echo "::$x::$y"
+            # x="${!ANNOTATION_LEVEL:1:-1}"
+            # y="${!ANNOTATION_MESSAGE:1:-1}"
+            # echo "::$x::$y"
+            echo "::${!ANNOTATION_LEVEL:1:-1}::${!ANNOTATION_MESSAGE:1:-1}"
           done
 
       # - run: |
