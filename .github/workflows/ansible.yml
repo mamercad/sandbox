@@ -39,6 +39,11 @@ jobs:
         run: |
           echo $X
 
+      - name: Set the value in bash
+        id: step_two
+        run: |
+          echo "::debug::X is $X"
+
       # - uses: actions/checkout@v3
 
       # - run: |
