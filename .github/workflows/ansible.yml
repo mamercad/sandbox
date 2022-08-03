@@ -18,11 +18,11 @@ env:
 jobs:
   ansible:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/mamercad/sandbox:latest
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+    # container:
+    #   image: ghcr.io/mamercad/sandbox:latest
+    #   credentials:
+    #     username: ${{ github.actor }}
+    #     password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
 
@@ -46,11 +46,11 @@ jobs:
 
       # - uses: actions/checkout@v3
 
-      # - run: |
-      #     echo "::notice::This is a notice message"
-      #     echo "::warning::This is a warning message"
-      #     echo "::debug::This is a debug message"
-      #     echo "::error::This is a error message"
+      - run: |
+          echo "::notice::This is a notice message"
+          echo "::warning::This is a warning message"
+          echo "::debug::This is a debug message"
+          echo "::error::This is a error message"
 
       # - name: Ⓐnsible
       #   id: ansible
