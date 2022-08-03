@@ -7,8 +7,8 @@
     FOO: BAR
   tasks:
 
-   - name: ping
-     ansible.builtin.ping:
+    - name: ping
+      ansible.builtin.ping:
 
 #    - name: debug
 #      ansible.builtin.debug:

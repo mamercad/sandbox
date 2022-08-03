@@ -33,12 +33,25 @@ jobs:
       #     echo "::debug::This is a debug message"
       #     echo "::error::This is a error message"
 
-      - name: Ⓐnsible
-        id: ansible
-        working-directory: ansible
+      - name: Set the value in bash
+        id: step_one
         run: |
-          ansible-playbook --inventory localhost, --connection local \
-            playbook.yml --verbose
+          echo 'X<<EOF' >> $GITHUB_ENV
+          echo 'this is line 1' >> $GITHUB_ENV
+          echo 'this is line 2' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: Set the value in bash
+        id: step_two
+        run: |
+          echo $X
+
+      # - name: Ⓐnsible
+      #   id: ansible
+      #   working-directory: ansible
+      #   run: |
+      #     ansible-playbook --inventory localhost, --connection local \
+      #       playbook.yml --verbose
 
       # - run: |
       #     echo "::notice::Ansible set FOO=${{ env.FOO }}"
