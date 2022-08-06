@@ -1,0 +1,22 @@
+name: badges
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  foo:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Create Awesome Badge
+        uses: schneegans/dynamic-badges-action@v1.4.0
+        with:
+          auth: ${{ secrets.SANDBOX_GIST_TOKEN }}
+          gistID: ${{ secrets.SANDBOX_GIST_ID }}
+          filename: sandbox-badges.json
+          label: Hello
+          message: World
+          color: orange
