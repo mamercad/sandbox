@@ -9,7 +9,7 @@ on:
       - open
       - closed
       - reopened
-      - synchronized
+      - synchronize
 
 jobs:
 
