@@ -1,0 +1,20 @@
+name: testing
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - open
+      - closed
+      - reopened
+      - synchronized
+
+jobs:
+
+  foo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ toJSON(github) }}"
