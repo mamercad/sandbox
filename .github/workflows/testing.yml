@@ -10,6 +10,7 @@ on:
       - closed
       - reopened
       - synchronize
+  workflow_dispatch:
 
 jobs:
 
