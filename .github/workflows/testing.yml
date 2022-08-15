@@ -36,7 +36,7 @@ jobs:
           date >tmp/ci-${{ github.run_number }}
           git add tmp/ci-${{ github.run_number }}
           git commit -m "Add ci-${{ github.run_number }}"
-          git push
+          git push --set-upstream origin ci-${{ github.run_number }}
           gh pr create --title "This is the PR title" --body "This is the PR body"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
