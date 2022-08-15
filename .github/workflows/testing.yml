@@ -28,12 +28,14 @@ jobs:
           wget -c https://github.com/cli/cli/releases/download/v2.14.4/gh_2.14.4_linux_amd64.deb
           wget -c https://github.com/cli/cli/releases/download/v2.14.4/gh_2.14.4_checksums.txt
           sha256sum --check --ignore-missing gh_2.14.4_checksums.txt
-          touch somefile
+          touch somefile-
           git config --global user.name "GitHub Actions"
           git config --global user.email "github+actions@exmaple.com"
           git checkout -b ci-${{ github.run_number }}
-          git add somefile
-          git commit -m "Add somefile"
+          mkdir tmp 2>/dev/null
+          date >tmp/ci-${{ github.run_number }}
+          git add tmp/ci-${{ github.run_number }}
+          git commit -m "Add ci-${{ github.run_number }}"
           git push
           gh pr create --title "This is the PR title" --body "This is the PR body"
         env:
