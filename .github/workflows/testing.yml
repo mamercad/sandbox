@@ -34,3 +34,5 @@ jobs:
           git add somefile
           git commit -m "Add somefile"
           gh pr create --title "This is the PR title" --body "This is the PR body"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
