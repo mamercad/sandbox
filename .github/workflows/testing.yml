@@ -23,6 +23,7 @@ jobs:
   open-pr:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - run: |
           wget -c https://github.com/cli/cli/releases/download/v2.14.4/gh_2.14.4_linux_amd64.deb
           wget -c https://github.com/cli/cli/releases/download/v2.14.4/gh_2.14.4_checksums.txt
