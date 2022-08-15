@@ -29,8 +29,8 @@ jobs:
           wget -c https://github.com/cli/cli/releases/download/v2.14.4/gh_2.14.4_checksums.txt
           sha256sum --check --ignore-missing gh_2.14.4_checksums.txt
           touch somefile
-          git add somefile
-          git commit -m "Add somefile"
           git config --global user.name "GitHub Actions"
           git config --global user.email "github+actions@exmaple.com"
+          git add somefile
+          git commit -m "Add somefile"
           gh pr create --title "This is the PR title" --body "This is the PR body"
