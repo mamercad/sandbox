@@ -11,6 +11,7 @@ jobs:
   testing1:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - run: |
           echo testing1
-      -  uses: mamercad/sandbox/action1@main
+      - uses: mamercad/sandbox/action1@main
