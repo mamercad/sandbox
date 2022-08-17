@@ -15,4 +15,4 @@ jobs:
       - run: |
           echo testing1
       - name: action1
-        uses: ./.github/actions/action1.yml@main
+        uses: ./.github/actions/action1
