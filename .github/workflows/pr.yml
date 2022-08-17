@@ -1,15 +1,15 @@
-name: testing
+name: pr
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types:
-      - open
-      - closed
-      - reopened
-      - synchronize
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   types:
+  #     - open
+  #     - closed
+  #     - reopened
+  #     - synchronize
   workflow_dispatch:
 
 jobs:
