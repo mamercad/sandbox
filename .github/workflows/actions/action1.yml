@@ -1,0 +1,10 @@
+name: action1
+description: test action
+inputs: {}
+outputs: {}
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        echo "hello from action1"
