@@ -13,3 +13,4 @@ jobs:
     steps:
       - run: |
           echo testing1
+      -  uses: actions/action1@main
