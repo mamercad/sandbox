@@ -13,4 +13,4 @@ jobs:
     steps:
       - run: |
           echo testing1
-      -  uses: sandbox/action1@main
+      -  uses: mamercad/sandbox/action1@main
