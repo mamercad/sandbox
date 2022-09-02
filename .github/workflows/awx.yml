@@ -34,8 +34,7 @@ jobs:
           ansible-playbook \
             --inventory localhost, \
             --connection local \
-              deploy.yml \
-              --verbose
+              deploy.yml
         env:
           TOWER_HOST: ${{ secrets.TOWER_HOST }}
           TOWER_USERNAME: ${{ secrets.TOWER_USERNAME }}
