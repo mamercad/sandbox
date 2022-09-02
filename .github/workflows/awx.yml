@@ -16,7 +16,7 @@ env:
   ANSIBLE_STDOUT_CALLBACK: unixy
 
 jobs:
-  ansible:
+  awx:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
@@ -30,3 +30,7 @@ jobs:
             --connection local \
               deploy.yml \
               --verbose
+        env:
+          TOWER_HOST: ${{ secrets.TOWER_HOST }}
+          TOWER_USERNAME: ${{ secrets.TOWER_USERNAME }}
+          TOWER_PASSWORD: ${{ secrets.TOWER_PASSWORD }}
