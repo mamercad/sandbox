@@ -1,0 +1,32 @@
+---
+name: awx
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: awx
+  cancel-in-progress: true
+
+env:
+  ANSIBLE_FORCE_COLOR: true
+  ANSIBLE_STDOUT_CALLBACK: unixy
+
+jobs:
+  ansible:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Ⓐnsible
+        id: awx
+        working-directory: awx
+        run: |
+          ansible-playbook \
+            --inventory localhost, \
+            --connection local \
+              deploy.yml \
+              --verbose
