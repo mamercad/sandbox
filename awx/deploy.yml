@@ -1,0 +1,11 @@
+---
+- name: deploy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    - name: deploy
+      ansible.builtin.include_role:
+        name: deploy

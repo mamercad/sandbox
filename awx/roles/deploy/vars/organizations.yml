@@ -1,0 +1,5 @@
+organizations:
+
+  - name: test
+    state: present
+    description: test organization

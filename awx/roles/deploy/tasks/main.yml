@@ -1,0 +1,5 @@
+---
+
+- name: organizations
+  ansible.builtin.include_tasks:
+    file: organizations.yml

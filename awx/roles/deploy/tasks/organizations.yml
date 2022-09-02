@@ -1,0 +1,13 @@
+---
+
+- name: vars
+  ansible.builtin.include_vars:
+    file: organizations.yml
+
+- name: create
+  awx.awx.organization:
+  args: "{{ item }}"
+  loop: "{{ organizations }}"
+  when:
+    - organizations is defined
+    - organizations | length > 0
