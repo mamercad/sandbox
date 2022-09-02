@@ -3,3 +3,7 @@ organizations:
   - name: test
     state: present
     description: test organization
+
+  - name: noob inc
+    state: present
+    description: test organization
