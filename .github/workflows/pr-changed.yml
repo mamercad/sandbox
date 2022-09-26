@@ -1,0 +1,67 @@
+name: pr-changed
+
+on:
+  # push:
+  #   branches:
+  #     - mamercad/issue-280
+  pull_request_target:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+
+# concurrency:
+#   group: cloud-integration-tests
+#   cancel-in-progress: false
+
+jobs:
+  integration:
+    # Require reviewers for this environment
+    # https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+    # environment: integration
+    runs-on: ubuntu-latest
+    # timeout-minutes: 120
+    steps:
+      - name: Get changed files in the plugins/module_utils folder
+        id: changed-module-utils
+        uses: tj-actions/changed-files@v30
+        with:
+          files: |
+            plugins/module_utils/**
+
+      - name: Get changed files in the plugins/modules folder
+        id: changed-modules
+        uses: tj-actions/changed-files@v30
+        with:
+          files: |
+            plugins/modules/**
+
+      - name: Perform testing (all modules)
+        if: steps.changed-module-utils.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the module_utils folder has changed."
+          echo "Run all the integration tests."
+
+      - name: Perform testing (changed modules)
+        if: steps.changed-modules.outputs.any_changed != 'true' && changed-modules == 'true'
+        run: |
+          echo "One or more files in the modules folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          basenames=()
+          for file in ${{ steps.changed-modules.outputs.all_changed_files }}; do
+            basenames+=($(basename $file .py))
+          done
+          printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
+
+    outputs:
+      matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
+
+  test-module:
+    runs-on: ubuntu-latest
+    needs: [integration]
+    strategy:
+      fail-fast: true
+      matrix:
+        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
+    steps:
+      - name: Perform testing (changed modules)
+        run: |
+          echo "Testing ${{ matrix.module }}."
