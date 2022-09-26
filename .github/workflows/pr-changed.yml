@@ -64,7 +64,7 @@ jobs:
     steps:
       - name: debugging
         run: |
-          matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
+          echo "matrix: '${{ steps.changed-modules-matrix.outputs.matrix }}'"
 
   # test-module:
   #   runs-on: ubuntu-latest
