@@ -74,7 +74,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
+        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix || '["empty"]') }}
     steps:
       - name: Perform testing (changed modules)
         if: ${{ matrix.module != 'empty' }}
