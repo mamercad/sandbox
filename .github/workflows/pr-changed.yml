@@ -45,7 +45,7 @@ jobs:
           echo "Run all the integration tests."
 
       - name: Perform testing (changed modules)
-        if: steps.changed-modules.outputs.any_changed != 'true' && steps.changed-module-utils.outputs.any_changed != 'true'
+        if: steps.changed-modules.outputs.any_changed == 'true' && steps.changed-module-utils.outputs.any_changed != 'true'
         run: |
           echo "One or more files in the modules folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
