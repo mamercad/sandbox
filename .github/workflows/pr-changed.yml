@@ -58,15 +58,23 @@ jobs:
     outputs:
       matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
 
-  test-module:
+  test-job:
     runs-on: ubuntu-latest
     needs: [integration]
-    if: ${{ steps.changed-modules-matrix.outputs.matrix != '' }}
-    strategy:
-      fail-fast: true
-      matrix:
-        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
     steps:
-      - name: Perform testing (changed modules)
+      - name: debugging
         run: |
-          echo "Testing ${{ matrix.module }}."
+          matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
+
+  # test-module:
+  #   runs-on: ubuntu-latest
+  #   needs: [integration]
+  #   if: ${{ steps.changed-modules-matrix.outputs.matrix != '' }}
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
+  #   steps:
+  #     - name: Perform testing (changed modules)
+  #       run: |
+  #         echo "Testing ${{ matrix.module }}."
