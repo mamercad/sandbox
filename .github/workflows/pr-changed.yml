@@ -57,7 +57,7 @@ jobs:
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
 
     outputs:
-      matrix: ${{ steps.changed-modules-matrix.outputs.matrix || ["empty"] }}
+      matrix: ${{ steps.changed-modules-matrix.outputs.matrix || '["empty"]' }}
 
   # test-job:
   #   runs-on: ubuntu-latest
