@@ -45,6 +45,7 @@ jobs:
           echo "Run all the integration tests."
 
       - name: Perform testing (changed modules)
+        id: changed-modules-matrix
         if: steps.changed-modules.outputs.any_changed == 'true' && steps.changed-module-utils.outputs.any_changed != 'true'
         run: |
           echo "One or more files in the modules folder has changed."
@@ -55,13 +56,8 @@ jobs:
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
 
-      - name: Default empty matrix
-        if: steps.changed-modules.outputs.any_changed != 'true' && steps.changed-module-utils.outputs.any_changed != 'true'
-        run: |
-          printf '::set-output name=matrix::["empty"]\n'
-
     outputs:
-      matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
+      matrix: ${{ steps.changed-modules-matrix.outputs.matrix || ["empty"] }}
 
   # test-job:
   #   runs-on: ubuntu-latest
