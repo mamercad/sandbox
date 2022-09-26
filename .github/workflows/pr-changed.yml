@@ -78,7 +78,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
+        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix || '[]') }}
     steps:
       - name: Perform testing (changed modules)
         if: ${{ steps.changed-modules-matrix.outputs.matrix != '[]' }}
