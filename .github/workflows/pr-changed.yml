@@ -58,7 +58,7 @@ jobs:
       - name: Default empty matrix
         if: steps.changed-modules.outputs.any_changed != 'true' && steps.changed-module-utils.outputs.any_changed != 'true'
         run: |
-          printf '::set-output name=matrix::[]\n'
+          printf '::set-output name=matrix::["empty"]\n'
 
     outputs:
       matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
@@ -78,9 +78,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix || '[]') }}
+        module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
     steps:
       - name: Perform testing (changed modules)
-        if: ${{ steps.changed-modules-matrix.outputs.matrix != '[]' }}
+        if: ${{ steps.changed-modules-matrix.outputs.matrix != '["empty"]' }}
         run: |
           echo "Testing ${{ matrix.module }}."
