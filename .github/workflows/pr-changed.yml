@@ -56,7 +56,7 @@ jobs:
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
 
     outputs:
-      matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
+      matrix: ${{ steps.changed-modules-matrix.outputs.matrix || '{}' }}
 
   # test-job:
   #   runs-on: ubuntu-latest
@@ -76,6 +76,6 @@ jobs:
         module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
     steps:
       - name: Perform testing (changed modules)
-        if: ${{ steps.changed-modules-matrix.outputs.matrix != '' }}
+        if: ${{ steps.changed-modules-matrix.outputs.matrix != '{}' }}
         run: |
           echo "Testing ${{ matrix.module }}."
