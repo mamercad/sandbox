@@ -59,15 +59,6 @@ jobs:
     outputs:
       matrix: ${{ steps.changed-modules-matrix.outputs.matrix || '["empty"]' }}
 
-  # test-job:
-  #   runs-on: ubuntu-latest
-  #   needs: [integration]
-  #   steps:
-  #     - name: debugging
-  #       if: ${{ steps.changed-modules-matrix.outputs.matrix != '' }}
-  #       run: |
-  #         echo "matrix: '${{ steps.changed-modules-matrix.outputs.matrix }}'"
-
   test-module:
     runs-on: ubuntu-latest
     needs: [integration]
