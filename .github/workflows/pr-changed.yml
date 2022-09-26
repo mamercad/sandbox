@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     # timeout-minutes: 120
     steps:
+      - uses: actions/checkout@v3
       - name: Get changed files in the plugins/module_utils folder
         id: changed-module-utils
         uses: tj-actions/changed-files@v30
