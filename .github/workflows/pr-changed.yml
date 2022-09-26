@@ -81,6 +81,6 @@ jobs:
         module: ${{ fromJson(needs.changed-modules-matrix.outputs.matrix) }}
     steps:
       - name: Perform testing (changed modules)
-        if: ${{ steps.changed-modules-matrix.outputs.matrix != '["empty"]' }}
+        if: ${{ matrix.module != 'empty') }}
         run: |
           echo "Testing ${{ matrix.module }}."
