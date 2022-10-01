@@ -77,7 +77,7 @@ jobs:
     needs: [integration]
     steps:
       - run: |
-          echo "${{ needs.integration.outputs.all_changed_files }}
+          echo "${{ needs.integration.outputs.changed_files }}"
           echo "${{ needs.integration.outputs.changed-modules-utils.all_changed_and_modified_files }}"
           echo "${{ needs.integration.outputs.changed-modules.all_changed_and_modified_files }}"
           echo "${{ needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix }}"
