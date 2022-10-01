@@ -63,41 +63,43 @@ jobs:
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
 
     outputs:
-      module_utils_matrix: ${{ steps.changed-modules-utils.matrix.outputs.matrix || '["empty"]' }}
-      module_matrix: ${{ steps.changed-modules-matrix.outputs.matrix || '["empty"]' }}
+      module_utils_matrix: ${{ steps.changed-modules-utils.matrix.outputs.matrix }}
+      module_matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
 
   debugging:
     runs-on: ubuntu-latest
     needs: [integration]
     steps:
       - run: |
-          echo "${{ toJson(needs.changed-modules-utils-matrix.outputs.matrix) }}"
-          echo "${{ toJson(needs.changed-modules-matrix.outputs.matrix) }}"
+          echo "${{ needs.changed-modules-utils-matrix.outputs.matrix }}"
+          echo "${{ needs.changed-modules-matrix.outputs.matrix }}"
+          echo "${{ toJSON(needs.changed-modules-utils-matrix.outputs.matrix) }}"
+          echo "${{ toJSON(needs.changed-modules-matrix.outputs.matrix) }}"
 
-  test-module-utils:
-    runs-on: ubuntu-latest
-    needs: [integration]
-    if: ${{ toJson(needs.changed-modules-utils-matrix.outputs.matrix) != 'null' }}
-    strategy:
-      fail-fast: true
-      matrix:
-        module: ${{ toJson(needs.changed-modules-utils-matrix.outputs.matrix) }}
-    steps:
-      - name: Perform testing (changed module_utils)
-        if: ${{ matrix.module != 'null' }}
-        run: |
-          echo "Testing module_util ${{ matrix.module }}."
+  # test-module-utils:
+  #   runs-on: ubuntu-latest
+  #   needs: [integration]
+  #   if: ${{ fromJSON(needs.changed-modules-utils-matrix.outputs.matrix) != 'null' }}
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       module: ${{ toJson(needs.changed-modules-utils-matrix.outputs.matrix) }}
+  #   steps:
+  #     - name: Perform testing (changed module_utils)
+  #       if: ${{ matrix.module != 'null' }}
+  #       run: |
+  #         echo "Testing module_util ${{ matrix.module }}."
 
-  test-module:
-    runs-on: ubuntu-latest
-    needs: [integration]
-    if: ${{ toJson(needs.changed-modules-matrix.outputs.matrix) != 'null' }}"
-    strategy:
-      fail-fast: true
-      matrix:
-        module: ${{ toJson(needs.changed-modules-matrix.outputs.matrix) }}
-    steps:
-      - name: Perform testing (changed modules)
-        if: ${{ matrix.module != 'null' }}
-        run: |
-          echo "Testing module ${{ matrix.module }}."
+  # test-module:
+  #   runs-on: ubuntu-latest
+  #   needs: [integration]
+  #   if: ${{ fromJSON(needs.changed-modules-matrix.outputs.matrix) != 'null' }}"
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       module: ${{ toJson(needs.changed-modules-matrix.outputs.matrix) }}
+  #   steps:
+  #     - name: Perform testing (changed modules)
+  #       if: ${{ matrix.module != 'null' }}
+  #       run: |
+  #         echo "Testing module ${{ matrix.module }}."
