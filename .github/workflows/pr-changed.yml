@@ -71,8 +71,8 @@ jobs:
     needs: [integration]
     steps:
       - run: |
-          echo "${{ fromJson(needs.changed-modules-utils-matrix.outputs.matrix || '[\"empty\"]') }}"
-          echo "${{ fromJson(needs.changed-modules-matrix.outputs.matrix || '[\"empty\"]') }}"
+          echo "${{ fromJson(needs.changed-modules-utils-matrix.outputs.matrix }}"
+          echo "${{ fromJson(needs.changed-modules-matrix.outputs.matrix }}"
 
   test-module-utils:
     runs-on: ubuntu-latest
