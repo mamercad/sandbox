@@ -1,8 +1,9 @@
 name: pr-changed
 
 on:
-  # push:
-  #   branches:
+  push:
+    branches:
+      - main
   #     - mamercad/issue-280
   pull_request_target:
     branches: [ main ]
