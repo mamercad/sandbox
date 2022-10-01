@@ -26,6 +26,10 @@ jobs:
           fetch-depth: 0
 
       - name: Get changed files in the plugins/module_utils folder
+        id: changed-files
+        uses: tj-actions/changed-files@v30
+
+      - name: Get changed files in the plugins/module_utils folder
         id: changed-module-utils
         uses: tj-actions/changed-files@v30
         with:
@@ -64,6 +68,7 @@ jobs:
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
 
     outputs:
+      changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
       module_utils_matrix: ${{ steps.changed-modules-utils.matrix.outputs.matrix }}
       module_matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
 
@@ -72,6 +77,7 @@ jobs:
     needs: [integration]
     steps:
       - run: |
+          echo "${{ needs.integration.outputs.all_changed_files }}
           echo "${{ needs.integration.outputs.changed-modules-utils.all_changed_and_modified_files }}"
           echo "${{ needs.integration.outputs.changed-modules.all_changed_and_modified_files }}"
           echo "${{ needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix }}"
