@@ -45,7 +45,7 @@ jobs:
           echo "One or more files in the module_utils folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-module-utils.outputs.all_changed_files }}"
           basenames=()
-          for file in ${{ steps.changed-module-utils.outputs.all_changed_files }}; do
+          for file in "${{ steps.changed-module-utils.outputs.all_changed_files }}"; do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
@@ -57,7 +57,7 @@ jobs:
           echo "One or more files in the modules folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-modules.outputs.all_changed_files }}"
           basenames=()
-          for file in ${{ steps.changed-modules.outputs.all_changed_files }}; do
+          for file in "${{ steps.changed-modules.outputs.all_changed_files }}"; do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
