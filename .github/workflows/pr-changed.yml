@@ -72,12 +72,12 @@ jobs:
     needs: [integration]
     steps:
       - run: |
-          echo "${{ needs.changed-modules-utils.all_changed_and_modified_files }}"
-          echo "${{ needs.changed-modules.all_changed_and_modified_files }}"
-          echo "${{ needs.changed-modules-utils-matrix.outputs.matrix }}"
-          echo "${{ needs.changed-modules-matrix.outputs.matrix }}"
-          echo "${{ toJSON(needs.changed-modules-utils-matrix.outputs.matrix) }}"
-          echo "${{ toJSON(needs.changed-modules-matrix.outputs.matrix) }}"
+          echo "${{ needs.integration.changed-modules-utils.all_changed_and_modified_files }}"
+          echo "${{ needs.integration.changed-modules.all_changed_and_modified_files }}"
+          echo "${{ needs.integration.changed-modules-utils-matrix.outputs.matrix }}"
+          echo "${{ needs.integration.changed-modules-matrix.outputs.matrix }}"
+          echo "${{ toJSON(needs.integration.changed-modules-utils-matrix.outputs.matrix) }}"
+          echo "${{ toJSON(needs.integration.changed-modules-matrix.outputs.matrix) }}"
 
   # test-module-utils:
   #   runs-on: ubuntu-latest
