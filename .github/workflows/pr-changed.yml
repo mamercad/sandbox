@@ -30,14 +30,14 @@ jobs:
         uses: tj-actions/changed-files@v30
         with:
           files: |
-            plugins/module_utils/**
+            ansible/plugins/module_utils/**
 
       - name: Get changed files in the plugins/modules folder
         id: changed-modules
         uses: tj-actions/changed-files@v30
         with:
           files: |
-            plugins/modules/**
+            ansible/plugins/modules/**
 
       - name: Create module_utils matrix (changed module_utils)
         id: changed-module-utils-matrix
