@@ -56,65 +56,19 @@ jobs:
           echo '${{ steps.changed-module-utils.outputs.matrix }}'
           echo '${{ steps.changed-modules.outputs.matrix }}'
 
-  #     - name: Get changed files in the plugins/module_utils folder
-  #       id: changed-files
-  #       uses: tj-actions/changed-files@v30
+    outputs:
+      module_utils_matrix: ${{ steps.changed-modules-utils.matrix.outputs.matrix }}
+      module_matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
 
-  #     - name: Get changed files in the plugins/module_utils folder
-  #       id: changed-module-utils
-  #       uses: tj-actions/changed-files@v30
-  #       with:
-  #         files: |
-  #           ansible/plugins/module_utils/**
-
-  #     - name: Get changed files in the plugins/modules folder
-  #       id: changed-modules
-  #       uses: tj-actions/changed-files@v30
-  #       with:
-  #         files: |
-  #           ansible/plugins/modules/**
-
-  #     - name: Create module_utils matrix (changed module_utils)
-  #       id: changed-module-utils-matrix
-  #       if: steps.changed-module-utils.outputs.any_changed
-  #       run: |
-  #         echo "One or more files in the module_utils folder has changed."
-  #         echo "List all the files that have changed: ${{ steps.changed-module-utils.outputs.all_changed_and_modified_files }}"
-  #         basenames=()
-  #         for file in "${{ steps.changed-module-utils.outputs.all_changed_and_modified_files }}"; do
-  #           basenames+=($(basename $file .py))
-  #         done
-  #         printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
-
-  #     - name: Create module matrix (changed modules)
-  #       id: changed-modules-matrix
-  #       if: steps.changed-modules.outputs.any_changed
-  #       run: |
-  #         echo "One or more files in the modules folder has changed."
-  #         echo "List all the files that have changed: ${{ steps.changed-modules.outputs.all_changed_and_modified_files }}"
-  #         basenames=()
-  #         for file in "${{ steps.changed-modules.outputs.all_changed_and_modified_files }}"; do
-  #           basenames+=($(basename $file .py))
-  #         done
-  #         printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
-
-  #   outputs:
-  #     changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
-  #     module_utils_matrix: ${{ steps.changed-modules-utils.matrix.outputs.matrix }}
-  #     module_matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
-
-  # debugging:
-  #   runs-on: ubuntu-latest
-  #   needs: [integration]
-  #   steps:
-  #     - run: |
-  #         echo "${{ needs.integration.outputs.changed_files }}"
-  #         echo "${{ needs.integration.outputs.changed-modules-utils.all_changed_and_modified_files }}"
-  #         echo "${{ needs.integration.outputs.changed-modules.all_changed_and_modified_files }}"
-  #         echo "${{ needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix }}"
-  #         echo "${{ needs.integration.outputs.changed-modules-matrix.outputs.matrix }}"
-  #         echo "${{ toJSON(needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix) }}"
-  #         echo "${{ toJSON(needs.integration.outputs.changed-modules-matrix.outputs.matrix) }}"
+  debugging:
+    runs-on: ubuntu-latest
+    needs: [integration]
+    steps:
+      - run: |
+          echo "${{ needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix }}"
+          echo "${{ needs.integration.outputs.changed-modules-matrix.outputs.matrix }}"
+          echo "${{ toJSON(needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix) }}"
+          echo "${{ toJSON(needs.integration.outputs.changed-modules-matrix.outputs.matrix) }}"
 
   # test-module-utils:
   #   runs-on: ubuntu-latest
