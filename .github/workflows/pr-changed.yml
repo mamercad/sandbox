@@ -73,7 +73,7 @@ jobs:
   test-module-utils:
     runs-on: ubuntu-latest
     needs: [integration]
-    if: ${{ toJSON(needs.integration.outputs.module-utils-matrix) != [""] }}
+    if: ${{ needs.integration.outputs.module-utils-matrix != '[""]' }}
     strategy:
       fail-fast: true
       matrix:
@@ -86,7 +86,7 @@ jobs:
   test-modules:
     runs-on: ubuntu-latest
     needs: [integration]
-    if: ${{ toJSON(needs.integration.outputs.module-utils) != [""] }}
+    if: ${{ needs.integration.outputs.module-utils != '[""]' }}
     strategy:
       fail-fast: true
       matrix:
