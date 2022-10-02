@@ -13,6 +13,9 @@ on:
 #   group: cloud-integration-tests
 #   cancel-in-progress: false
 
+env:
+  DEFAULT_BRANCH: remotes/origin/foo
+
 jobs:
   integration:
     # Require reviewers for this environment
@@ -33,7 +36,7 @@ jobs:
         id: changed-module-utils
         run: |
           basenames=()
-          for file in $(git diff --name-only remotes/origin/foo | grep 'ansible/plugins/module_utils/'); do
+          for file in $(git diff --name-only $DEFAULT_BRANCH | grep 'ansible/plugins/module_utils/'); do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
@@ -42,7 +45,7 @@ jobs:
         id: changed-modules
         run: |
           basenames=()
-          for file in $(git diff --name-only remotes/origin/foo | grep 'ansible/plugins/modules/'); do
+          for file in $(git diff --name-only $DEFAULT_BRANCH | grep 'ansible/plugins/modules/'); do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
