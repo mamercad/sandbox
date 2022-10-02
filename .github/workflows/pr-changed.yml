@@ -25,6 +25,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: debug
+        run: |
+          git branch -av
+
       - name: git changed module_utils
         id: changed-module-utils
         run: |
