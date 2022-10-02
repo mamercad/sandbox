@@ -65,10 +65,10 @@ jobs:
     needs: [integration]
     steps:
       - run: |
-          echo "${{ needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix }}"
-          echo "${{ needs.integration.outputs.changed-modules-matrix.outputs.matrix }}"
-          echo "${{ toJSON(needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix) }}"
-          echo "${{ toJSON(needs.integration.outputs.changed-modules-matrix.outputs.matrix) }}"
+          echo "${{ needs.integration.outputs.changed-modules-utils.matrix }}"
+          echo "${{ needs.integration.outputs.changed-modules.matrix }}"
+          echo "${{ toJSON(needs.integration.outputs.changed-modules-utils.matrix) }}"
+          echo "${{ toJSON(needs.integration.outputs.changed-modules.matrix) }}"
 
   # test-module-utils:
   #   runs-on: ubuntu-latest
