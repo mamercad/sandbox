@@ -77,7 +77,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        module: ${{ toJSON(needs.integration.outputs.module-utils-matrix) }}
+        module: ${{ needs.integration.outputs.module-utils-matrix }}
     steps:
       - name: Perform testing (changed module_utils)
         run: |
@@ -90,7 +90,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        module: ${{ toJSON(needs.integration.outputs.module-matrix) }}
+        module: ${{ needs.integration.outputs.module-matrix }}
     steps:
       - name: Perform testing (changed modules)
         run: |
