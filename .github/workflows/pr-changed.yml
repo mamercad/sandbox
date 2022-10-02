@@ -86,7 +86,7 @@ jobs:
   test-modules:
     runs-on: ubuntu-latest
     needs: [integration]
-    if: ${{ needs.integration.outputs.module-utils != '[""]' }}
+    if: ${{ needs.integration.outputs.module-matrix != '[""]' }}
     strategy:
       fail-fast: true
       matrix:
