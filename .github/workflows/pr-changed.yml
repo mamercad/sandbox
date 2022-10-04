@@ -1,10 +1,6 @@
 name: pr-changed
 
 on:
-  push:
-    branches:
-      - main
-  #     - mamercad/issue-280
   pull_request_target:
     branches: [ main ]
     types: [ opened, synchronize, reopened ]
@@ -36,7 +32,7 @@ jobs:
         id: changed-module-utils
         run: |
           basenames=()
-          for file in $(git diff --name-only $DEFAULT_BRANCH | grep 'ansible/plugins/module_utils/'); do
+          for file in "$(git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH | grep 'ansible/plugins/module_utils/')"; do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
@@ -45,7 +41,7 @@ jobs:
         id: changed-modules
         run: |
           basenames=()
-          for file in $(git diff --name-only $DEFAULT_BRANCH | grep 'ansible/plugins/modules/'); do
+          for file in "$(git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH | grep 'ansible/plugins/modules/')"; do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
