@@ -27,6 +27,10 @@ jobs:
       - name: debug
         run: |
           echo ==========
+          git fetch --all
+          echo ==========
+          git status
+          echo ==========
           git branch -av
           echo ==========
           git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH
