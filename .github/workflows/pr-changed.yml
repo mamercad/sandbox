@@ -27,21 +27,13 @@ jobs:
 
       - name: debug
         run: |
-          echo ==========
-          git fetch --all
-          echo ==========
-          git status
-          echo ==========
-          git branch -av
-          echo ==========
-          git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH
-          echo ==========
+          git diff --name-only $DEFAULT_BRANCH
 
       - name: git changed module_utils
         id: changed-module-utils
         run: |
           basenames=()
-          for file in $(git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH | grep 'ansible/plugins/module_utils/'); do
+          for file in $(git diff --name-only $DEFAULT_BRANCH | grep 'ansible/plugins/module_utils/'); do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
@@ -50,7 +42,7 @@ jobs:
         id: changed-modules
         run: |
           basenames=()
-          for file in $(git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH | grep 'ansible/plugins/modules/'); do
+          for file in $(git diff --name-only $DEFAULT_BRANCH | grep 'ansible/plugins/modules/'); do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
