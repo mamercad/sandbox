@@ -26,7 +26,11 @@ jobs:
 
       - name: debug
         run: |
+          echo ==========
           git branch -av
+          echo ==========
+          git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH
+          echo ==========
 
       - name: git changed module_utils
         id: changed-module-utils
