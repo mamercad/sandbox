@@ -1,10 +1,6 @@
 name: pr-changed
 
 on:
-  push:
-    branches:
-      - main
-  #     - mamercad/issue-280
   pull_request_target:
     branches: [ main ]
     types: [ opened, synchronize, reopened ]
@@ -12,6 +8,9 @@ on:
 # concurrency:
 #   group: cloud-integration-tests
 #   cancel-in-progress: false
+
+env:
+  DEFAULT_BRANCH: remotes/origin/foo
 
 jobs:
   integration:
@@ -25,90 +24,70 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get changed files in the plugins/module_utils folder
-        id: changed-files
-        uses: tj-actions/changed-files@v30
+      - name: debug
+        run: |
+          git branch -av
 
-      - name: Get changed files in the plugins/module_utils folder
+      - name: git changed module_utils
         id: changed-module-utils
-        uses: tj-actions/changed-files@v30
-        with:
-          files: |
-            ansible/plugins/module_utils/**
+        run: |
+          basenames=()
+          for file in "$(git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH | grep 'ansible/plugins/module_utils/')"; do
+            basenames+=($(basename $file .py))
+          done
+          printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
 
-      - name: Get changed files in the plugins/modules folder
+      - name: git changed modules
         id: changed-modules
-        uses: tj-actions/changed-files@v30
-        with:
-          files: |
-            ansible/plugins/modules/**
-
-      - name: Create module_utils matrix (changed module_utils)
-        id: changed-module-utils-matrix
-        if: steps.changed-module-utils.outputs.any_changed
         run: |
-          echo "One or more files in the module_utils folder has changed."
-          echo "List all the files that have changed: ${{ steps.changed-module-utils.outputs.all_changed_and_modified_files }}"
           basenames=()
-          for file in "${{ steps.changed-module-utils.outputs.all_changed_and_modified_files }}"; do
+          for file in "$(git diff --name-only ${{ github.head_ref }}..$DEFAULT_BRANCH | grep 'ansible/plugins/modules/')"; do
             basenames+=($(basename $file .py))
           done
           printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
 
-      - name: Create module matrix (changed modules)
-        id: changed-modules-matrix
-        if: steps.changed-modules.outputs.any_changed
+      - name: debug
+        id: debug
         run: |
-          echo "One or more files in the modules folder has changed."
-          echo "List all the files that have changed: ${{ steps.changed-modules.outputs.all_changed_and_modified_files }}"
-          basenames=()
-          for file in "${{ steps.changed-modules.outputs.all_changed_and_modified_files }}"; do
-            basenames+=($(basename $file .py))
-          done
-          printf '::set-output name=matrix::%s\n' $(printf '%s\n' "${basenames[@]}" | jq -R . | jq -sc .)
+          echo '${{ steps.changed-module-utils.outputs.matrix }}'
+          echo '${{ steps.changed-modules.outputs.matrix }}'
 
     outputs:
-      changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
-      module_utils_matrix: ${{ steps.changed-modules-utils.matrix.outputs.matrix }}
-      module_matrix: ${{ steps.changed-modules-matrix.outputs.matrix }}
+      module-utils-matrix: ${{ steps.changed-module-utils.outputs.matrix }}
+      module-matrix: ${{ steps.changed-modules.outputs.matrix }}
 
   debugging:
     runs-on: ubuntu-latest
     needs: [integration]
     steps:
       - run: |
-          echo "${{ needs.integration.outputs.changed_files }}"
-          echo "${{ needs.integration.outputs.changed-modules-utils.all_changed_and_modified_files }}"
-          echo "${{ needs.integration.outputs.changed-modules.all_changed_and_modified_files }}"
-          echo "${{ needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix }}"
-          echo "${{ needs.integration.outputs.changed-modules-matrix.outputs.matrix }}"
-          echo "${{ toJSON(needs.integration.outputs.changed-modules-utils-matrix.outputs.matrix) }}"
-          echo "${{ toJSON(needs.integration.outputs.changed-modules-matrix.outputs.matrix) }}"
+          echo "${{ needs.integration.outputs.module-utils-matrix }}"
+          echo "${{ needs.integration.outputs.module-matrix }}"
+          echo "${{ toJSON(needs.integration.outputs.module-utils-matrix) }}"
+          echo "${{ toJSON(needs.integration.outputs.module-matrix) }}"
 
-  # test-module-utils:
-  #   runs-on: ubuntu-latest
-  #   needs: [integration]
-  #   if: ${{ fromJSON(needs.changed-modules-utils-matrix.outputs.matrix) != 'null' }}
-  #   strategy:
-  #     fail-fast: true
-  #     matrix:
-  #       module: ${{ toJson(needs.changed-modules-utils-matrix.outputs.matrix) }}
-  #   steps:
-  #     - name: Perform testing (changed module_utils)
-  #       if: ${{ matrix.module != 'null' }}
-  #       run: |
-  #         echo "Testing module_util ${{ matrix.module }}."
+  test-module-utils:
+    runs-on: ubuntu-latest
+    needs: [integration]
+    if: ${{ needs.integration.outputs.module-utils-matrix != '[""]' }}
+    strategy:
+      fail-fast: true
+      matrix:
+        module: ${{ fromJSON(needs.integration.outputs.module-utils-matrix) }}
+    steps:
+      - name: Perform testing (changed module_utils)
+        run: |
+          echo "Testing module_utils ${{ matrix.module }}."
 
-  # test-module:
-  #   runs-on: ubuntu-latest
-  #   needs: [integration]
-  #   if: ${{ fromJSON(needs.changed-modules-matrix.outputs.matrix) != 'null' }}"
-  #   strategy:
-  #     fail-fast: true
-  #     matrix:
-  #       module: ${{ toJson(needs.changed-modules-matrix.outputs.matrix) }}
-  #   steps:
-  #     - name: Perform testing (changed modules)
-  #       if: ${{ matrix.module != 'null' }}
-  #       run: |
-  #         echo "Testing module ${{ matrix.module }}."
+  test-modules:
+    runs-on: ubuntu-latest
+    needs: [integration]
+    if: ${{ needs.integration.outputs.module-matrix != '[""]' }}
+    strategy:
+      fail-fast: true
+      matrix:
+        module: ${{ fromJSON(needs.integration.outputs.module-matrix) }}
+    steps:
+      - name: Perform testing (changed modules)
+        run: |
+          echo "Testing modules ${{ matrix.module }}."
