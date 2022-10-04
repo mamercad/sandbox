@@ -10,7 +10,7 @@ on:
 #   cancel-in-progress: false
 
 env:
-  DEFAULT_BRANCH: remotes/origin/foo
+  DEFAULT_BRANCH: remotes/origin/main
 
 jobs:
   integration:
