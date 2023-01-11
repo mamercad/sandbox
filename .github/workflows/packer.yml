@@ -1,0 +1,29 @@
+---
+name: packer
+
+on:
+  pull_request:
+  push:
+    branches:
+      - packer
+  workflow_dispatch:
+
+concurrency:
+  group: packer
+  cancel-in-progress: true
+
+jobs:
+  ansible:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup `packer`
+        uses: hashicorp/setup-packer@main
+        id: setup
+        with:
+          version: "1.6.6" # or `latest`
+
+      - name: Run `packer validate`
+        id: init
+        run: "packer validate st2.json"
