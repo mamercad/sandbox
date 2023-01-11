@@ -27,3 +27,7 @@ jobs:
       - name: Run `packer validate`
         id: init
         run: "packer validate st2.json"
+
+      - name: Run `packer build`
+        id: init
+        run: "packer build st2.json"
