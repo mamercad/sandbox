@@ -25,9 +25,9 @@ jobs:
           version: "1.5.6" # or `latest`
 
       - name: Run `packer validate`
-        id: init
+        id: validate
         run: "packer validate st2.json"
 
       - name: Run `packer build`
-        id: init
+        id: build
         run: "packer build st2.json"
