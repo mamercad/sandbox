@@ -3,6 +3,7 @@ requirements:
 	poetry export --without-hashes --format=requirements.txt | tee requirements.txt
 	poetry export --without-hashes --format=requirements.txt | tee docker/requirements.txt
 
+UNAME := $(shell uname | tr '[:upper:]' '[:lower:]')
 VAGRANT_VERSION = 2.3.4
 
 VAGRANT = $(shell command -v vagrant 2>/dev/null)
