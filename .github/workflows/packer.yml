@@ -29,6 +29,11 @@ jobs:
           vagrant version
           make install-vagrant
 
+      - name: coreutils
+        run: |
+          brew install coreutils
+          sha256sum README.md
+
       # - name: Setup `packer`
       #   uses: hashicorp/setup-packer@main
       #   id: setup
