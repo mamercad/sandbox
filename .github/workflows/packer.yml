@@ -22,6 +22,7 @@ jobs:
 
       - name: vagrant
         run: |
+          vagrant version
           make install-vagrant
 
       # - name: Setup `packer`
