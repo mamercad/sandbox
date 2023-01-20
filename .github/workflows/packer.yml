@@ -14,7 +14,6 @@ concurrency:
 
 jobs:
   packer:
-    # runs-on: ubuntu-latest
     runs-on: macos-12
     timeout-minutes: 60
     steps:
@@ -37,17 +36,3 @@ jobs:
         run: |
           brew install coreutils
           sha256sum README.md
-
-      # - name: Setup `packer`
-      #   uses: hashicorp/setup-packer@main
-      #   id: setup
-      #   with:
-      #     version: "1.5.6" # or `latest`
-
-      # - name: Run `packer validate`
-      #   id: validate
-      #   run: "packer validate st2.json"
-
-      # - name: Run `packer build`
-      #   id: build
-      #   run: "packer build st2.json"
