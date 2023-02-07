@@ -23,6 +23,7 @@ class C:
         self.b = B()
 
     def get(self: object) -> bool:
+        print(self.a.get().get("a"))
         if self.a.get().get("a") == "a":
             return True
         else:
