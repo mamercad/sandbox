@@ -25,7 +25,7 @@ jobs:
       - run: |
           if [[ "${{ github.head_ref }}" =~ ^revert\-[0-9]+\-.+$ ]]; then
             echo "This is a Revert PR"
-            gh pr approve ${{ github.event.number }}
+            gh pr review --epprove ${{ github.event.number }}
           else
             echo "This is not a Revert PR"
           fi
