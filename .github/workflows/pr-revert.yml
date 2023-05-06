@@ -24,8 +24,8 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           if [[ "${{ github.head_ref }}" =~ ^revert\-[0-9]+\-.+$ ]]; then
-            echo "This is a Revert PR"
-            gh pr review --epprove ${{ github.event.number }}
+            echo "This is a revert PR"
+            gh pr review ${{ github.event.number }} --approve --comment "Auto-approving revert PR"
           else
             echo "This is not a Revert PR"
           fi
