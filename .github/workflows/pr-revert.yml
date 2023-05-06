@@ -9,8 +9,18 @@ on:
       - synchronize
 
 jobs:
-  foo:
+  debug:
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo "${{ toJSON(github) }}"
+
+  logic:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if [[ "${{ github.head_ref }}" =~ ^revert\-[0-9]+\-.+$ ]]; then
+            echo "This is a Revert PR"
+          else
+            echo "This is not a Revert PR"
+          fi
