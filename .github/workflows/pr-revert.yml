@@ -4,7 +4,6 @@ on:
   pull_request:
     types:
       - opened
-      - closed
       - reopened
       - synchronize
 
@@ -23,9 +22,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          if [[ "${{ github.head_ref }}" =~ ^revert\-[0-9]+\-.+$ ]]; then
-            echo "This is a revert PR of ${{ github.event.number}}"
+          if [[ "${{ github.head_ref }}" =~ ^revert\-([0-9]+)\-.+$ ]]; then
+            revert_pr="${BASH_REMATCH[1]}"
             gh pr review ${{ github.event.number }} --approve
+            gh pr comment ${{ github.event.number}} --body "Auto-approved this revert of PR #${revert_pr}"
           else
-            echo "This is not a Revert PR"
+            echo "This is not a revert PR"
           fi
