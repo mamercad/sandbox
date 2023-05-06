@@ -8,6 +8,9 @@ on:
       - reopened
       - synchronize
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
   debug:
     runs-on: ubuntu-latest
