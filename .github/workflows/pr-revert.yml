@@ -21,6 +21,7 @@ jobs:
   logic:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - run: |
           if [[ "${{ github.head_ref }}" =~ ^revert\-[0-9]+\-.+$ ]]; then
             echo "This is a Revert PR"
