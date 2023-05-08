@@ -17,9 +17,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # Revert PR from the GH/GHE UI
           if [[ "${{ github.head_ref }}" =~ ^revert\-([0-9]+)\-.+$ ]]; then
             revert_pr="${BASH_REMATCH[1]}"
             gh pr review ${{ github.event.number }} --approve
             gh pr comment ${{ github.event.number}} \
               --body "Auto-approved this revert of PR #${revert_pr}"
+          fi
+          # Revert PR from "git revert" (likely fragile)
+          elif [[ "${{ github.event.pull_request.body }}" =~ ^This reverts commit ]]; then
+            gh pr review ${{ github.event.number }} --approve
+            gh pr comment ${{ github.event.number}} \
+              --body "Auto-approved this revert
           fi
