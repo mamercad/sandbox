@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Debug
+        run: |
+          echo '${{ toJSON(github) }}'
       - name: Revert
         env:
           GH_TOKEN: ${{ github.token }}
