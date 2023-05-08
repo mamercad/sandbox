@@ -25,7 +25,8 @@ jobs:
               --body "Auto-approved this revert of PR #${revert_pr}"
           # Revert PR from "git revert" (likely fragile)
           elif [[ "${{ github.event.pull_request.body }}" =~ ^This\ reverts\ commit ]]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
             gh pr review ${{ github.event.number }} --approve
             gh pr comment ${{ github.event.number}} \
-              --body "Auto-approved this revert"
+              --body "Auto-approved this revert of ${base_sha}"
           fi
