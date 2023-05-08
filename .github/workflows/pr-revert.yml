@@ -27,5 +27,5 @@ jobs:
           elif [[ "${{ github.event.pull_request.body }}" =~ ^This\ reverts\ commit ]]; then
             gh pr review ${{ github.event.number }} --approve
             gh pr comment ${{ github.event.number}} \
-              --body "Auto-approved this revert
+              --body "Auto-approved this revert"
           fi
