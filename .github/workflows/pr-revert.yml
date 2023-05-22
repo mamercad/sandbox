@@ -18,6 +18,9 @@ jobs:
           # case insensitive regex
           shopt -s nocasematch
 
+          # https://docs.github.com/en/actions/learn-github-actions/expressions#contains
+          pr_title_contains_revert="${{ contains(github.event.pull_request.title, 'revert') }}"
+
           echo "has-auto-approved=false" >>$GITHUB_OUTPUT
 
           if [[ "${{ github.head_ref }}" =~ ^revert\-([0-9]+)\-.+$ ]]; then
@@ -43,7 +46,7 @@ jobs:
             echo "::endgroup::"
             exit 0
 
-          elif [[ "${{ github.event.pull_request.title }}" =~ revert ]]; then
+          elif [[ "${pr_title_contains_revert}" == "true" ]]; then
             echo "::group::Revert initiated from 'revert' in title"
             base_sha="${{ github.event.pull_request.base.sha }}"
             gh pr review ${{ github.event.number }} --approve
