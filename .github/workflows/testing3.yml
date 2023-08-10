@@ -1,4 +1,4 @@
-name: testing3
+name: json matrix
 
 on:
   push:
