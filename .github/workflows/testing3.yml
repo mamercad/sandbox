@@ -14,13 +14,15 @@ jobs:
       - name: json
         id: json
         run: |
-          echo 'json={"a":"b"}' >>$GITHUB_OUTPUT
+          echo 'json=[{"foo":"bar"},{"foo","buz"}]' >>$GITHUB_OUTPUT
 
   next:
     needs: json
     runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.json.outputs.json) }}
     steps:
       - name: next
         id: next
         run: |
-          echo '${{ needs.json.outputs.json }}' | jq
+          echo '${{ matrix.foo }}'
