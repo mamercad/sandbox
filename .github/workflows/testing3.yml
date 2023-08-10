@@ -3,14 +3,24 @@ name: testing3
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - json
 
 jobs:
+  json:
+    runs-on: ubuntu-latest
+    outputs:
+      json: ${{ steps.json.outputs.json }}
+    steps:
+      - name: json
+        id: json
+        run: |
+          echo 'json={"a":"b"}' >>$GITHUB_OUTPUT
 
-  testing:
+  next:
+    needs: json
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo testing
-          id
+      - name: next
+        id: next
+        run: |
+          echo "${{ fromJson(needs.json.outputs.json) }}" | jq
