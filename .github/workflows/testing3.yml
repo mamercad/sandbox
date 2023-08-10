@@ -6,23 +6,23 @@ on:
       - json
 
 jobs:
-  json:
+  matrix:
     runs-on: ubuntu-latest
     outputs:
-      json: ${{ steps.json.outputs.json }}
+      matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
-      - name: json
-        id: json
+      - name: matrix
+        id: matrix
         run: |
-          echo 'json=[{"foo":"bar"},{"foo","buz"}]' >>$GITHUB_OUTPUT
+          echo 'matrix={"foo":[1,2,3],"bar":[1]}' >>$GITHUB_OUTPUT
 
   next:
-    needs: json
+    needs: matrix
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.json.outputs.json) }}
+      matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
     steps:
       - name: next
         id: next
         run: |
-          echo '${{ matrix.foo }}'
+          echo '${{ matrix.foo }} ${{ matrix.bar }}'
