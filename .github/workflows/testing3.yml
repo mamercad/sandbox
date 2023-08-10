@@ -25,4 +25,4 @@ jobs:
       - name: next
         id: next
         run: |
-          echo '${{ matrix.foo }} ${{ matrix.bar }}'
+          echo '${{ matrix.matrix }}'
