@@ -23,4 +23,4 @@ jobs:
       - name: next
         id: next
         run: |
-          echo "${{ fromJson(needs.json.outputs.json) }}" | jq
+          echo "${{ fromJson(needs.json.outputs.json) }}"
