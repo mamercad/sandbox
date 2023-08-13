@@ -16,4 +16,4 @@ jobs:
       - name: Docker
         run: |
           docker --version
-          docker run --rm --privileged --volume /sys/fs/cgroup:/sys/fs/cgroup:rw centos:7 -- systemctl list-units
+          docker run --rm --privileged --volume /sys/fs/cgroup:/sys/fs/cgroup:rw centos:7 systemctl list-units
