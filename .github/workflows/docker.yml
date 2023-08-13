@@ -18,3 +18,4 @@ jobs:
           docker --version
           podman --version
           podman run centos:7 uname -a
+          podman run centos:7 systemctl list-units
