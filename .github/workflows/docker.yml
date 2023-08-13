@@ -17,3 +17,4 @@ jobs:
         run: |
           docker --version
           podman --version
+          podman run centos:7 uname -a
