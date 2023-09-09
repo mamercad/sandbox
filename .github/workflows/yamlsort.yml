@@ -12,3 +12,10 @@ jobs:
     steps:
       - run: |
           sudo snap install dyff yq
+
+      - run: |
+          yamls=($(git diff main --name-only | grep -E '\.y?ml$'))
+          for yaml in yamls
+          do
+            echo "yaml: $yaml"
+          done
