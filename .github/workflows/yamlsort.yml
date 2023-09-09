@@ -21,12 +21,18 @@ jobs:
           git fetch --all
 
       - run: |
+          function yamlsort() {
+            yq e '(... | select(type == "!!seq")) |= sort | to_entries | sort_by(.key) | from_entries' "$@"
+          }
+
           yamls=($(git diff origin/main --name-only | grep -E '\.y?ml$'))
           for yaml in "${yamls[@]}"
           do
             echo "yaml: $yaml"
-            if git cat-file -e origin/main:${yaml} 2>/dev/null; then
+            if git cat-file -e "origin/main:${yaml}" 2>/dev/null; then
               echo "exists in main"
+              git cat-file -e "origin/main:${yaml}" >"${yaml}.main"
+              dyff "$yaml" "$yaml.main"
             else
               echo "does not exist in main"
             fi
