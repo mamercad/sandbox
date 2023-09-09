@@ -13,6 +13,8 @@ jobs:
       - run: |
           sudo snap install dyff yq
 
+      - uses: actions/checkout@v3
+
       - run: |
           yamls=($(git diff main --name-only | grep -E '\.y?ml$'))
           for yaml in "${yamls[@]}"
