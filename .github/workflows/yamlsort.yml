@@ -35,5 +35,7 @@ jobs:
               dyff "$yaml" "$yaml.main"
             else
               echo "does not exist in main"
+              yamlsort "$yaml" >"${yaml}.sort"
+              dyff "$yaml" "$yaml.sort"
             fi
           done
