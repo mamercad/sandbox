@@ -38,5 +38,6 @@ jobs:
               yamlsort "$yaml" >"${yaml}.sort"
               dyff between "$yaml" "$yaml.sort"
               diff "$yaml" "$yaml.sort"
+              sdiff "$yaml" "$yaml.sort"
             fi
           done
