@@ -36,6 +36,6 @@ jobs:
             else
               echo "does not exist in main"
               yamlsort "$yaml" >"${yaml}.sort"
-              dyff "$yaml" "$yaml.sort"
+              dyff between "$yaml" "$yaml.sort"
             fi
           done
