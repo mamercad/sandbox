@@ -1,0 +1,14 @@
+name: yamlsort
+
+on:
+  push:
+    branches:
+      - yamlsort
+  workflow_dispatch:
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          sudo snap install dyff yq
